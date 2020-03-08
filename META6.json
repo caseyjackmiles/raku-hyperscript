@@ -1,0 +1,21 @@
+{
+  "api": "0",
+  "authors": [
+    "caseyjackmiles <caseyjackmiles@gmail.com>"
+  ],
+  "depends": [
+  ],
+  "description": "Create hypertext with Raku",
+  "license": "MIT",
+  "meta-version": 0,
+  "name": "Hyperscript",
+  "perl": "6.d",
+  "provides": {
+  },
+  "resources": [
+  ],
+  "source-url": "",
+  "tags": [
+  ],
+  "version": "0.0.0"
+}
