@@ -11,6 +11,7 @@
   "name": "Hyperscript",
   "perl": "6.d",
   "provides": {
+    "Hyperscript": "lib/Hyperscript.pm6"
   },
   "resources": [
   ],
