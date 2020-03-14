@@ -1,0 +1,24 @@
+use v6.d;
+
+use Test;
+use Hyperscript;
+constant &h = &hyperscript;
+
+constant $expected = '<a href="https://github.com">GitHub</a>';
+
+plan 3;
+
+is h('a', { :href<https://github.com> }, 'GitHub'),
+  $expected,
+  'should produce attributes with adverbial pair literal';
+
+is h('a', { href => 'https://github.com' }, 'GitHub'),
+  $expected,
+  'should produce attributes with arrow pair literal';
+
+my $href = 'https://github.com';
+is h('a', {:$href}, 'GitHub'),
+  $expected,
+  'should produce attributes with variable form';
+
+done-testing;

@@ -6,8 +6,17 @@ unit module Hyperscript;
 
 class Node {
   has $.tag; has %.attrs; has @.children; has $.inner;
+
+  method opening-tag {
+    if %.attrs {
+      join ' ', "$.tag", |%.attrs.pairs.map: {qq[{.key}="{.value}"]}
+    } else {
+      $.tag
+    }
+  }
+
   method Str {
-    "<$.tag>{$.inner}</$.tag>";
+    "<{self.opening-tag}>{$.inner}</$.tag>";
   }
 }
 
