@@ -9,19 +9,19 @@ sub attr-string ($pair) {
 }
 
 class Node {
-  has $.tag; has %.attrs; has @.children;
+  has $.tag; has %.attrs; has @.inner;
 
   method opening-tag {
     join ' ', $.tag, |%.attrs.pairs.map: &attr-string
   }
 
   method Str {
-    "<{self.opening-tag}>{@.children.join('')}</$.tag>";
+    "<{self.opening-tag}>{@.inner.join('')}</$.tag>";
   }
 }
 
-sub hyperscript(Str $tag, %attrs, *@children) is export {
-  Node.new(:$tag, :%attrs, :@children).Str
+sub hyperscript(Str $tag, %attrs, *@inner) is export {
+  Node.new(:$tag, :%attrs, :@inner).Str
 }
 
 # vim: ft=perl6 et sw=2
