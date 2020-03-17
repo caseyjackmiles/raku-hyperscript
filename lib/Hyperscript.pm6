@@ -9,7 +9,7 @@ sub attr-string ($pair) {
 }
 
 class Node {
-  has $.tag; has %.attrs; has @.children; has $.inner;
+  has $.tag; has %.attrs; has @.children;
 
   method opening-tag {
     if %.attrs {
@@ -20,12 +20,12 @@ class Node {
   }
 
   method Str {
-    "<{self.opening-tag}>{$.inner}</$.tag>";
+    "<{self.opening-tag}>{@.children.join('')}</$.tag>";
   }
 }
 
-sub hyperscript($tag, %attrs, Str $inner) is export {
-  Node.new(:$tag, :%attrs, :$inner).Str
+sub hyperscript(Str $tag, %attrs, *@children) is export {
+  Node.new(:$tag, :%attrs, :@children).Str
 }
 
 # vim: ft=perl6 et sw=2
