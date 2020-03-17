@@ -12,11 +12,7 @@ class Node {
   has $.tag; has %.attrs; has @.children;
 
   method opening-tag {
-    if %.attrs {
-      join ' ', $.tag, |%.attrs.pairs.map: &attr-string
-    } else {
-      $.tag
-    }
+    join ' ', $.tag, |%.attrs.pairs.map: &attr-string
   }
 
   method Str {
