@@ -4,6 +4,11 @@ use v6.d;
 
 unit module Hyperscript;
 
+our $void-tags is export(:void-tags) = set qw[
+  area base br col embed hr img input
+  link meta param source track wbr
+];
+
 sub attr-string ($pair) {
   qq[{.key}="{.value}"] with $pair;
 }
@@ -16,7 +21,11 @@ class Node {
   }
 
   method Str {
-    "<{self.opening-tag}>{@.inner.join('')}</$.tag>";
+    if $void-tags{$.tag} {
+      "<{self.opening-tag}/>"
+    } else {
+      "<{self.opening-tag}>{@.inner.join('')}</$.tag>"
+    }
   }
 }
 
