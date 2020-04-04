@@ -27,7 +27,10 @@ sub parse-tag(Str $tag-combo) {
 }
 
 sub attr-string ($pair) {
-  qq[{.key}="{.value}"] with $pair;
+  given $pair.value {
+    when Bool { qq[{$pair.key}="{$pair.key}"] if $_ }
+    default { qq[{$pair.key}="{$pair.value}"] }
+  }
 }
 
 class Node {
