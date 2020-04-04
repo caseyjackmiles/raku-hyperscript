@@ -26,10 +26,16 @@ sub parse-tag(Str $tag-combo) {
   return $tag, $id, @classes;
 }
 
+sub style-attribute(%properties) {
+  my $declarations = %properties.sort.map(-> $prop { "$prop.key(): $prop.value()" }).join('; ');
+  'style="' ~ $declarations ~ '"';
+}
+
 sub attr-string ($pair) {
-  given $pair.value {
-    when Bool { qq[{$pair.key}="{$pair.key}"] if $_ }
-    default { qq[{$pair.key}="{$pair.value}"] }
+  given $pair.key, $pair.value {
+    when 'style', Hash { style-attribute($pair.value) }
+    when $, Bool       { qq[{$pair.key}="{$pair.key}"] if $pair.value }
+    default            { qq[{$pair.key}="{$pair.value}"] }
   }
 }
 
