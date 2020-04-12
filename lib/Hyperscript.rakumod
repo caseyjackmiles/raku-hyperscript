@@ -28,13 +28,14 @@ sub parse-tag($tag-combo) {
 }
 
 sub style-attribute(%properties) {
-  my $declarations = %properties.sort.map(-> $prop { "$prop.key(): $prop.value()" }).join('; ');
-  'style="' ~ $declarations ~ '"';
+  %properties.sort.map(-> $prop { "$prop.key(): $prop.value()" }).join('; ');
 }
 
 sub attr-string ($pair) {
   given $pair.key, $pair.value {
-    when 'style', Hash { style-attribute($pair.value) }
+    when 'style', Hash { qq[style="{style-attribute($pair.value)}"] }
+    when 'class', List { qq[class="{$pair.value.Set.keys.sort}"] }
+    when 'class', Str  { qq[class="{$pair.value.words.Set.keys.sort}"] }
     when $, Bool       { qq[{$pair.key}="{$pair.key}"] if $pair.value }
     default            { qq[{$pair.key}="{$pair.value}"] }
   }
