@@ -9,7 +9,7 @@ our $void-tags is export(:void-tags) = set qw[
   link meta param source track wbr
 ];
 
-sub parse-tag(Str $tag-combo) {
+sub parse-tag($tag-combo) {
   my $tag = 'div'; my @classes; my $id;
   my @tokens = qw[# .];
 
@@ -23,7 +23,8 @@ sub parse-tag(Str $tag-combo) {
       @classes.push: $name;
     }
   }
-  return $tag, $id, @classes;
+
+  {:$tag, :$id, :@classes}
 }
 
 sub style-attribute(%properties) {
@@ -43,9 +44,9 @@ class Node {
   has $.tag; has %.attrs; has @.inner;
 
   submethod TWEAK() {
-    my ($tag, $id, @classes) = flat parse-tag($!tag);
+    my ($tag, $id, $classes) = parse-tag($!tag)<tag id classes>;
     $!tag = $tag;
-    %!attrs<class> = @classes if @classes.elems > 0;
+    %!attrs<class> = $classes if $classes.elems > 0;
     %!attrs<id> = $id with $id;
   }
 
