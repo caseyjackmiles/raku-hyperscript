@@ -9,22 +9,17 @@ our $void-tags is export(:void-tags) = set qw[
   link meta param source track wbr
 ];
 
-sub parse-tag($tag-combo) {
-  my $tag = 'div'; my @classes; my $id;
+sub parse-tag($shorthand) {
+  my $tag = 'div'; my $classes = []; my $id;
   my @tokens = qw[# .];
 
-  my @split = $tag-combo.split(@tokens, :v, :skip-empty);
+  my @split = $shorthand.split(@tokens, :v, :skip-empty);
   $tag = @split.shift unless @split.first eq any @tokens;
 
   for @split -> $token, $name {
-    if $token eq '#' {
-      $id = $name;
-    } else {
-      @classes.push: $name;
-    }
+    $token eq '#' ?? ($id = $name) !! $classes.push($name);
   }
-
-  {:$tag, :$id, :@classes}
+  {:$classes, :$id, :$tag};
 }
 
 sub style-attribute(%properties) {
@@ -45,10 +40,10 @@ class Node {
   has $.tag; has %.attrs; has @.inner;
 
   submethod TWEAK() {
-    my ($tag, $id, $classes) = parse-tag($!tag)<tag id classes>;
-    $!tag = $tag;
-    %!attrs<class> = $classes if $classes.elems > 0;
-    %!attrs<id> = $id with $id;
+    my ($t, $i, $c) = parse-tag($!tag)<tag id classes>;
+    $!tag = $t;
+    %!attrs<class> = $c if $c.elems > 0;
+    %!attrs<id> = $i with $i;
   }
 
   method opening-tag {

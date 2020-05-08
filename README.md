@@ -14,6 +14,30 @@ say h('h1', {}, 'hello, world!');
 # OUTPUT: <h1>hello, world!</h1>
 ```
 
+## slightly longer example
+
+```raku
+use Hyperscript;
+constant &h = &hyperscript;
+
+my $html =
+h('div#page', {},
+  h('div#header', {},
+    h('h1.classy', { style => { background-color => '#22f'}}, 'h')),
+  h('div#menu', { style => { background-color => '#2f2' }},
+    h('ul', {},
+      h('li', {}, 'one'),
+      h('li', {}, 'two'),
+      h('li', {}, 'three'))),
+  h('h2', { style => { background-color => '#f22' } }, 'content title'),
+  h('p', {},
+    "so it's just like a templating engine, ",
+    "but easy to use inline with Raku"),
+  h('p', {},
+    "the intention is for this to be used to create ",
+    "reusable, interactive html widgets."));
+```
+
 ## why?
 
 * It produces HTML from Raku code, instead of a separate templating language.
