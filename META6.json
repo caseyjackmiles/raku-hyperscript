@@ -11,7 +11,8 @@
   "name": "Hyperscript",
   "perl": "6.d",
   "provides": {
-    "Hyperscript": "lib/Hyperscript.rakumod"
+    "Hyperscript": "lib/Hyperscript.rakumod",
+    "Hyperscript::Helpers": "lib/Hyperscript/Helpers.rakumod"
   },
   "resources": [
   ],

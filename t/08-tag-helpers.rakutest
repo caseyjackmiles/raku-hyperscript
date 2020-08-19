@@ -1,0 +1,13 @@
+use v6.d;
+use Test;
+use Hyperscript;
+use Hyperscript::Helpers;
+
+my @helpers = &div, &p, &img, &ol, &ul, &li, &a, &nav;
+
+for <div p img ol ul li a nav>.kv -> $index, $tag {
+  my $result = @helpers[$index]({});
+  is $result, hyperscript($tag, {}), "should use $tag helper";
+}
+
+done-testing;
