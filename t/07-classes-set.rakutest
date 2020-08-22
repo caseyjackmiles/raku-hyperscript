@@ -9,9 +9,9 @@ constant $expected = '<div class="123 abc"></div>';
 plan 1;
 
 my $results =
-  h('div', { class => <abc 123 abc> }) &
-  h('div', { class => 'abc 123 abc' }) &
-  h('.abc.123.abc', {});
+  h('div', :class<abc 123 abc>) &
+  h('div', :class('abc 123 abc')) &
+  h('.abc.123.abc');
 
 is $results, $expected, 'produces class set';
 

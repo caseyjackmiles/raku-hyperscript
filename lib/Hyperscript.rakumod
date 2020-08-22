@@ -59,7 +59,7 @@ class Node {
   }
 }
 
-sub hyperscript(Str $tag, %attrs, *@inner) is export {
+sub hyperscript(Str $tag, *%attrs, *@inner) is export {
   Node.new(:$tag, :%attrs, :@inner).Str
 }
 

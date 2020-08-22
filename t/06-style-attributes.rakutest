@@ -10,7 +10,7 @@ plan 1;
 
 my $result = h(
   'h1.fun',
-  { style => { :font-family<'Comic Sans MS'> } },
+  style => { :font-family<'Comic Sans MS'> },
   'Happy Birthday!'
 );
 

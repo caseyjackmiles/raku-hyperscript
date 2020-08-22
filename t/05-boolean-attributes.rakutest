@@ -8,13 +8,13 @@ plan 2;
 
 subtest 'True attribute', {
   constant $expected = '<input required="required" type="text"/>';
-  my $result = h('input', { :required:type<text> });
+  my $result = h('input', :required:type<text>);
   is $result, $expected, 'produces expected HTML';
 }
 
 subtest 'False attribute', {
   constant $expected = '<input type="text"/>';
-  my $result = h('input', { :!required:type<text> });
+  my $result = h('input', :!required:type<text>);
   is $result, $expected, 'produces expected HTML';
 }
 

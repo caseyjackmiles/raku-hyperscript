@@ -8,8 +8,8 @@ plan 3;
 
 subtest 'single nested child', {
   constant $expected = '<p><em>emphasis</em></p>';
-  my $result = h('p', {}, [
-    h('em', {}, 'emphasis')
+  my $result = h('p', [
+    h('em', 'emphasis')
   ]);
 
   is $result, $expected, 'produces children';
@@ -17,9 +17,9 @@ subtest 'single nested child', {
 
 subtest 'multiple nested children', {
   constant $expected = '<p>Get out of bed <em>now</em>!</p>';
-  my $result = h('p', {}, [
+  my $result = h('p', [
     'Get out of bed ',
-    h('em', {}, 'now'),
+    h('em', 'now'),
     '!'
   ]);
 
@@ -33,11 +33,11 @@ subtest 'multiple levels of nesting', {
 
   my $result = h('p', {}, [
     'Mass-energy equivalence formula: ',
-    h('var', {}, 'E'),
+    h('var', 'E'),
     '=',
-    h('var', {}, 'm'),
-    h('var', {}, 'c'),
-    h('sup', {}, '2'),
+    h('var', 'm'),
+    h('var', 'c'),
+    h('sup', '2'),
     '.'
   ]);
 
