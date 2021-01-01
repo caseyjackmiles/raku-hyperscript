@@ -1,13 +1,9 @@
 use v6.d;
 use Test;
 use Hyperscript;
-use Hyperscript::Helpers;
 
-my @helpers = &div, &p, &img, &ol, &ul, &li, &a, &nav;
+plan :skip-all('Hyperscript::Helpers module has been removed');
 
-for <div p img ol ul li a nav>.kv -> $index, $tag {
-  my $result = @helpers[$index]({});
-  is $result, hyperscript($tag), "should use $tag helper";
-}
+# TODO: New tests for tag helpers
 
 done-testing;

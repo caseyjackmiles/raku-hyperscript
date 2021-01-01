@@ -83,26 +83,6 @@ Will provide the following HTML:
 </nav>
 ```
 
-## helpers for common tags
-
-`Hyperscript::Helpers` module provides simple helpers for common tags: div, p, img, ol, ul, li, a, nav.
-
-```raku
-use Hyperscript::Helpers;
-
-my $nav =
-div(:class<main text-center text-gray>,
-  p(:class<text-large>, 'Main Menu'),
-  nav(
-    ul(
-      li(a(:href</>, 'Home')),
-      li(a(:href</blog>:active, 'News')),
-      li(a(:href</contact>, 'Contact'))
-    )
-  )
-);
-```
-
 ## why?
 
 * It produces HTML from Raku code, instead of a separate templating language.

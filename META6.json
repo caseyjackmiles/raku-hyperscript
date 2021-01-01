@@ -10,7 +10,6 @@
   "perl": "6.d",
   "provides": {
     "Hyperscript": "lib/Hyperscript.rakumod",
-    "Hyperscript::Helpers": "lib/Hyperscript/Helpers.rakumod"
   },
   "resources": [],
   "source-url": "git://github.com/caseyjackmiles/raku-hyperscript.git",
