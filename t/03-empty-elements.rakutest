@@ -1,7 +1,7 @@
 use v6.d;
 
 use Test;
-use Hyperscript :void-tags, :DEFAULT;
+use Hyperscript;
 constant &h = &hyperscript;
 
 plan 2;
@@ -22,8 +22,8 @@ subtest 'non-void elements', {
 
 subtest 'void elements', {
   subtest 'without attributes', {
-    my $expects = $void-tags.keys.map: { "<$^tag />" };
-    my $results = $void-tags.keys.map: { h($^tag) };
+    my $expects = $Hyperscript::void-tags.keys.map: { "<$^tag />" };
+    my $results = $Hyperscript::void-tags.keys.map: { h($^tag) };
     is $results, $expects, 'produces expected HTML';
   }
 

@@ -23,7 +23,7 @@ sub hyperscript(Str $tag, *%attrs, *@inner) is export {
   Node.new(:$tag, :%attrs, :@inner).Str
 }
 
-our $void-tags is export(:void-tags) = set qw[
+our $void-tags = set qw[
   area base br col embed hr img input
   link meta param source track wbr
 ];
