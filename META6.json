@@ -9,7 +9,7 @@
   "name": "Hyperscript",
   "perl": "6.d",
   "provides": {
-    "Hyperscript": "lib/Hyperscript.rakumod",
+    "Hyperscript": "lib/Hyperscript.rakumod"
   },
   "resources": [],
   "source-url": "git://github.com/caseyjackmiles/raku-hyperscript.git",
