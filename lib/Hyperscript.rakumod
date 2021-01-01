@@ -51,13 +51,45 @@ class Node {
   }
 
   method Str {
-    if $void-tags{$.tag} {
-      "<{self.opening-tag}/>"
-    } else {
-      "<{self.opening-tag}>{@.inner.join('')}</$.tag>"
-    }
+    walk(self, output-style);
   }
 }
+
+subset VoidNode of Node where { $void-tags{$_.tag} };
+
+enum Style <Condensed Pretty>;
+
+sub output-style(--> Style) {
+  $*hyperscript-style // Condensed;
+}
+
+multi sub walk(Node $node, Pretty, $indent = 0) {
+  my $opening = ' ' x $indent ~ "<{$node.opening-tag}>";
+  my $closing = ' ' x $indent ~ "</{$node.tag}>";
+  my @children = $node.inner.map: -> $child { walk($child, Pretty, $indent + 2) };
+
+  join "\n", $opening, @children, $closing
+}
+
+multi sub walk(VoidNode $node, Pretty, $indent = 0) {
+  ' ' x $indent ~ "<{$node.opening-tag} />"
+}
+
+multi sub walk(Str $node, Pretty, $indent = 0) {
+  join "\n", $node.lines.map({ ' ' x $indent ~ $^line })
+}
+
+multi sub walk($node, Pretty, $indent = 0) {
+  ' ' x $indent ~ $node
+}
+
+multi sub walk(Node $node, Condensed) {
+  "<$node.opening-tag()>{$node.inner.join('')}</$node.tag()>"
+}
+
+multi sub walk(VoidNode $node, Condensed) { "<$node.opening-tag() />" }
+
+multi sub walk($node, Condensed) { $node.Str }
 
 sub hyperscript(Str $tag, *%attrs, *@inner) is export {
   Node.new(:$tag, :%attrs, :@inner).Str

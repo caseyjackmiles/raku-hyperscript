@@ -49,6 +49,40 @@ h('div#page',
     "reusable, interactive html widgets."));
 ```
 
+## 'pretty' output
+
+By default, hyperscript outputs a condensed string of HTML. Sometimes it may be useful to have
+a string representation that more closely reflects the nesting structure of your HTML. 'Pretty' output
+can be enabled when needed by setting the `$*hyperscript-style` dynamic variable.
+
+Running this Raku code:
+```raku
+use Hyperscript;
+my &h = &hyperscript;
+
+my @items = do for 1..3 {
+  h('li.condensed', h('a.condensed', :href("page$_.html"), h('b.condensed', "Page $_")))
+}
+
+my $site-nav = do {
+  my $*hyperscript-style = Hyperscript::Style::Pretty; # Enable pretty output
+  h('nav.pretty', h('ul.pretty', @items))
+}
+
+say $site-nav;
+```
+Will provide the following HTML:
+
+```html
+<nav class="pretty">
+  <ul class="pretty">
+    <li class="condensed"><a class="condensed" href="page1.html"><b class="condensed">Page 1</b></a></li>
+    <li class="condensed"><a class="condensed" href="page2.html"><b class="condensed">Page 2</b></a></li>
+    <li class="condensed"><a class="condensed" href="page3.html"><b class="condensed">Page 3</b></a></li>
+  </ul>
+</nav>
+```
+
 ## helpers for common tags
 
 `Hyperscript::Helpers` module provides simple helpers for common tags: div, p, img, ol, ul, li, a, nav.

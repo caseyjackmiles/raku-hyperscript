@@ -1,0 +1,44 @@
+use v6.d;
+use Test;
+use Hyperscript;
+
+constant &h = &hyperscript;
+
+my $condensed = '<div><p><img /></p><ul><li><b>Item 1</b></li></ul></div>';
+
+my $pretty = q:to/PRETTY/.chomp;
+<div>
+  <p>
+    <img />
+  </p>
+  <ul>
+    <li>
+      <b>
+        Item 1
+      </b>
+    </li>
+  </ul>
+</div>
+PRETTY
+
+sub result {
+  h('div',
+    h('p',
+      h('img')
+    ),
+    h('ul',
+      h('li',
+        h('b', 'Item 1')
+      )
+    )
+  )
+}
+
+{
+  my $*hyperscript-style = Hyperscript::Style::Pretty;
+  is result, $pretty, 'matches pretty output';
+}
+
+is result, $condensed, 'matches condensed output';
+
+done-testing;
